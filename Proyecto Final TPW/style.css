@@ -5,75 +5,153 @@
   box-sizing: border-box;
 }
 
+.cv-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding-top: 20px; /* <-- esto separa del borde superior */
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+}
+
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  background: #f9f9f9;
+  background-color: #f4f6f8;
   color: #333;
 }
 
-/* Header */
-header {
+/*Header*/
+/* ① Círculo con iniciales superpuesto */
+/* Header container */
+.custom-header {
+  background: none;          /* el fondo rojo va en .header-bar */
+  padding: 0;
+}
+
+/* Flex row que agrupa círculo + barra */
+.header-content {
+  position: relative;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  background: #333;
-  color: #fff;
-  padding: 1rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  width: 100%;
+  padding-left: 200px; /* separa el contenido del círculo */
+  padding-top: 60px;   /* igual que el círculo */
+  padding-bottom: 20px;
 }
 
-.logo {
-  font-weight: bold;
-  font-size: 1.5rem;
-}
-
-nav ul {
+.logo-circle {
+  position: absolute;
+  left: 50px;                /* separación desde el borde izquierdo */
+  top: 20px;                 /* separación desde el borde superior */
+  transform: none;          /* eliminamos el centrado automático */
+  width: 170px;
+  height: 170px;
+  border: 4px solid #e74c3c;
+  border-radius: 50%;
+  background: white;
+  overflow: hidden;
   display: flex;
-  list-style: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
 }
 
-nav ul li {
+.logo-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.header-bar {
+  background: #e74c3c;
+  color: white;
+  padding: 20px 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 0;
+  height: 90px;
+}
+
+/* Texto principal */
+.header-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0px; /*Controla la separacion entre el del header entre h1 y p*/
+}
+
+
+.header-info p {
+  margin: 0px 0 0; /*Controla el espacio de margin en p*/
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Navegación */
+.nav-doble-fila {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Mantiene los botones alineados a la derecha */
+  gap: 8px;
+  padding-right: 20px; /* Espacio opcional entre botones y borde */
+}
+
+.nav-fila {
+  display: flex;
+  gap: 25px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  min-width: 400px; /* 👈 Controla el ancho base de cada fila */
   margin-left: 20px;
 }
 
-nav ul li a {
-  color: #fff;
+.nav-fila a {
+  color: white;
   text-decoration: none;
-  transition: color 0.3s ease;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
 }
 
-nav ul li a:hover {
-  color: #ccc;
+.nav-fila a:hover {
+  opacity: 0.7;
 }
 
-.hamburguesa {
-  display: none;
-  font-size: 2rem;
-  cursor: pointer;
-  color: #fff;
+.nav-fila.superior {
+  transform: translateX(5.5px); /* hacia la derecha */
 }
 
 /* Secciones principales */
+/* === Diseño tipo tarjeta para cada sección === */
 .section {
-  padding: 60px 20px;
-  text-align: center;
+  background: #ffffff;
+  padding: 40px 30px;
+  margin: 40px auto;
+  max-width: 1000px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  text-align: left;
+  scroll-margin-top: 100px; /* para el sticky header */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .section h2 {
+  font-size: 1.6rem;
   margin-bottom: 20px;
-  text-align: left;
-  padding-left: 20px;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 10px;
+  color: #333;
 }
 
-/* Sobre Mí */
-#sobre-mi img {
-  width: 200px;
-  border-radius: 50%;
-  display: block;
-  margin: 20px auto;
+.section:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 /* Flex general (Sobre Mí y Proyectos) */
@@ -105,37 +183,19 @@ nav ul li a:hover {
   word-wrap: break-word;
 }
 
-/* Habilidades */
-#habilidades ul {
-  list-style: square inside;
+.skills-list {
+  list-style: none;
+  padding: 0;
   text-align: left;
-  display: inline-block;
+  max-width: 400px;
 }
 
-/* Ajustes de Habilidades en Desktop */
-#habilidades .flex-container {
-  justify-content: center;
-  gap: 60px;      /* espacio entre columnas */
-  width: auto;
-  margin: 0 auto;
-}
-
-#habilidades .flex-container .texto {
-  padding-left: 0;
-}
-
-#habilidades .flex-container ul {
-  margin: 0;
-  padding-inline-start: 20px;
-  text-align: left;
-}
-
-/* Proyectos */
-#proyectos img {
-  width: 200px;
-  border-radius: 50%;
-  display: block;
-  margin: 20px auto;
+.skills-list li {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 /* Botón de contacto */
@@ -239,81 +299,462 @@ footer .social-icons a:hover {
   color: #000;
 }
 
-/* Espaciado anchors */
-#inicio {
-  padding-top: 100px;
-  margin-top: -70px;
+.contenedor-doble {
+  display: flex;
+  gap: 30px; /*Separador entre proyecto y proyecto imagen*/
+  max-width: 1000px;
+  margin: 0 auto; /*Se encarga de q este en el mismo formato q todas las tajetas es decir ubicacion exacta no separa las tarjet*/
+  flex-wrap: wrap;
 }
 
-#sobre-mi,
-#habilidades,
-#proyectos,
+.tarjeta-proyecto {
+  flex: 1;
+  min-width: 300px;
+  margin-top: 0;
+}
+
+#proyectos {
+  scroll-margin-top: 100px;
+}
+
 #contacto {
-  padding-top: 100px;
-  margin-top: -130px;
+  margin-top: 0;  /* mismo que otras secciones */
+  scroll-margin-top: 100px;  /* para navegación anclada */
 }
 
-/*  
-.section .texto p,
-.section p {
-  text-align: justify;
-  text-align-last: center;
-}
-/
 
-/* Responsive */
-@media (max-width: 768px) {
-  /* Menú hamburguesa */
-  nav ul {
+/* 70% ancho para Sobre Mí */
+.contenedor-doble #sobre-mi {
+  flex: 7;
+}
+
+/* 30% ancho para Habilidades */
+.contenedor-doble #habilidades {
+  flex: 3;
+}
+
+#experiencia-educacion .contenedor-doble > .tarjeta-proyecto:first-child {
+  flex: 6; /* 60% */
+}
+
+#experiencia-educacion .contenedor-doble > .tarjeta-proyecto:last-child {
+  flex: 4; /* 40% */
+}
+
+.hamburguesa {
+  display: none;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+  padding-right: 15px;
+}
+
+/* Estilo base para el icono */
+.hamburguesa i {
+  transition: transform 0.3s ease;
+}
+
+/* Cuando el menú está abierto (usamos clase .active al ícono) */
+.hamburguesa.active i {
+  transform: rotate(90deg); /* o scale(1.2), o lo que quieras */
+}
+
+/* -------------------------- */
+/* Estilos para 110% de zoom */
+/* -------------------------- */
+@media (max-width: 1300px) {
+  .header-info h1 {
+    font-size: 1.8rem;
+  }
+
+  .header-info p {
+    font-size: 1rem;
+  }
+
+  .nav-fila a {
+    font-size: 0.9rem;
+  }
+
+  .logo-circle {
+    width: 150px;
+    height: 150px;
+  }
+
+  .header-content {
+    padding-left: 180px;
+    padding-top: 50px;
+  }
+
+  .header-bar {
+    height: 80px;
+  }
+
+  .nav-fila.superior {
+    transform: translateX(35px); /* hacia la derecha */
+  }
+}
+
+/* -------------------------- */
+/* Estilos para 125% de zoom */
+/* -------------------------- */
+@media (max-width: 1150px) {
+  /* Cambiar a diseño centrado tipo mobile (como la 4ta imagen) */
+  .header-content {
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 10px 10px 10px;
+  }
+
+  .logo-circle {
+    position: static;
+    margin-bottom: 10px;
+  }
+
+  .header-bar {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: auto;
+    padding: 15px 20px;
+    box-sizing: border-box;
+    width: 102.2%; /* 🔑 Esto es lo que faltaba */
+  }
+  .header-info h1 {
+    font-size: 1.5rem;
+  }
+  .header-info{
+    margin-bottom: 10px;
+  }
+
+  .header-info p {
+    font-size: 0.95rem;
+  }
+
+  .nav-doble-fila {
+    align-items: center;
+    padding-right: 0;
+  }
+
+  .nav-fila {
+    flex-wrap: wrap;
+    justify-content: center;
+    min-width: auto;
+    margin-left: 0;
+    gap: 10px;
+  }
+
+  .nav-fila a {
+    font-size: 0.85rem;
+  }
+
+  .nav-fila.superior {
+    transform: translateX(2.5px); /* hacia la derecha */
+  }
+}
+
+/* ================================ */
+/* Pantallas medianas: tablets (768px - 1023px) */
+/* ================================ */
+@media (max-width: 1023px) {
+  .header-content {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+  }
+
+  .logo-circle {
+    position: static;
+    margin-bottom: 15px;
+  }
+
+  .cv-container {
+    overflow: hidden; /* ⛔ evita que se desborde visualmente */
+  }
+
+  .header-bar {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: auto;
+    padding: 15px 20px;
+    width: calc(100% + 40px); /* 🔴 importante: compensamos el padding */
+    box-sizing: border-box;
+  }
+
+  .header-info h1 {
+    font-size: 1.6rem;
+  }
+
+  .header-info p {
+    font-size: 1rem;
+  }
+
+  .nav-doble-fila {
+    align-items: center;
+    padding-right: 0;
+  }
+
+  .nav-fila {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-left: 0;
+    gap: 15px;
+    min-width: auto;
+  }
+
+  .nav-fila a {
+    font-size: 0.9rem;
+  }
+}
+
+/* ================================ */
+/* Pantallas pequeñas: móviles (< 768px) */
+/* ================================ */
+@media (max-width: 767px) {
+  .cv-container {
+    overflow: hidden; /* ⛔ evita que se desborde visualmente */
+  }
+
+  .header-bar {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: auto;
+    padding: 15px 20px;
+    width: calc(100% + 40px); /* 🔴 importante: compensamos el padding */
+    box-sizing: border-box;
+  }
+
+  .header-info h1 {
+    font-size: 1.4rem;
+  }
+
+  .header-info p {
+    font-size: 0.9rem;
+  }
+
+  .logo-circle {
+    width: 130px;
+    height: 130px;
+  }
+
+  .nav-fila {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-fila a {
+    font-size: 0.85rem;
+  }
+
+  .contenedor-doble {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .section {
+    padding: 30px 20px;
+    margin: 20px 0;
+  }
+
+  .hamburguesa {
+    display: block;
+    text-align: right;
+    padding: 10px;
+  }
+
+  /* Oculta el menú inicialmente */
+  .nav-doble-fila {
     display: none;
     flex-direction: column;
-    background: #333;
-    position: absolute;
-    top: 70px; right: 0;
-    width: 200px;
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  nav ul.show { display: flex; }
-  nav ul li {
-    margin: 0;
-    border-bottom: 1px solid #444;
-    padding: 12px 0;
-    text-align: center;
-  }
-  .hamburguesa { display: block; }
-
-  /* Encabezados centrados */
-  .section h2 {
-    text-align: center;
-    padding-left: 0;
-  }
-
-  /* Flex-container en móvil */
-  .flex-container {
-    flex-direction: column;
     align-items: center;
-    text-align: center;
-  }
-  .flex-container .texto {
-    text-align: center;
-    padding-left: 0;
-    max-width: 90%;
+    gap: 10px;
+    margin-top: 10px;
   }
 
-  /* Habilidades en móvil: listas pegadas */
-  #habilidades .flex-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
+  /* Mostrar el menú cuando se activa */
+  .nav-doble-fila.show {
+    display: flex;
+  }
+}
+
+/* =============================================== */
+/* ✅ Corrección final para tarjetas y responsividad */
+/* =============================================== */
+
+@media (max-width: 1150px) and (min-width: 768px) {
+  .contenedor-doble {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;         /* Centra las tarjetas */
+    gap: 30px;
+    padding: 0 40px; /* Protege bordes de las tarjetas dobles */
+    margin: 0 auto;                  /* ✅ Igual al diseño base */
+    max-width: 1000px;               /* ✅ Igual al diseño base */
+    box-sizing: border-box;
+  }
+
+  .section {
+    max-width: 1000px;               /* Igual que en estado base */
+    margin: 20px auto;               /* Misma separación vertical */
+    padding: 40px 30px;              /* Igual que estado base */
     width: 100%;
+    box-sizing: border-box;
   }
-  #habilidades .flex-container ul {
-    margin: 0;
-    padding: 0;
-    list-style-position: inside;
+}
+
+@media (max-width: 767px) {
+  .cv-container {
+    width: 95%;
+    overflow: hidden;
+    padding: 0 10px;            /* Agregado para proteger bordes */
+    box-sizing: border-box;
   }
-  #habilidades .flex-container ul + ul {
+
+  .contenedor-doble {
+    flex-direction: column;     /* Tarjetas en columna */
+    gap: 20px;
+    padding: 0 10px;            /* Espaciado lateral */
+    box-sizing: border-box;
+  }
+
+  .section {
+    padding: 25px 15px;
+    margin: 20px auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 1150px) and (min-width: 768px) {
+  #intereses {
     margin-top: 0 !important;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Estas tarjetas se deben pegar arriba */
+  #educacion,
+  #intereses {
+    margin-top: 0 !important;
+  }
+
+  /* Todas las tarjetas de proyecto se pegan arriba excepto las de imagen */
+  .tarjeta-proyecto {
+    margin-top: 0 !important;
+  }
+
+  /* Solo las tarjetas de imagen de proyecto deben separarse un poco */
+  .tarjeta-imagen {
+    margin-top: 0 !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .proyecto-principal {
+    margin-top: 20px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  #idiomas {
+    margin-top: 0 !important;
+  }
+}
+
+@media (max-width: 767px) {
+  #logros {
+    margin-top: 20px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  #experiencia {
+    margin-top: 20px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  #habilidades {
+    margin-top: 0px !important;
+  }
+}
+
+@media (max-width: 1150px) {
+  #contacto {
+    padding: 30px 20px !important; /* Ajustar el padding para pantallas más pequeñas */
+    margin: 20px auto !important; /* Centrar la tarjeta */
+    max-width: 1000px; /* Mantener el max-width */
+    width: calc(100% - 80px); /* Ajustar el ancho para que respete el padding del cv-container */
+    box-sizing: border-box;
+    display: flex; /* Asegúrate de que el contenedor de las tarjetas use flexbox */
+    flex-direction: column; /* Alinear en columna si es necesario */
+    align-items: center; /* Centrar los elementos dentro de la tarjeta */
+  }
+}
+
+@media (max-width: 1023px) {
+  #contacto {
+    padding: 30px 20px !important; /* Ajustar el padding para pantallas más pequeñas */
+    margin: 30px auto !important; /* Centrar la tarjeta */
+    max-width: 1000px; /* Mantener el max-width */
+    width: calc(100% - 80px); /* Ajustar el ancho para que respete el padding del cv-container */
+    box-sizing: border-box;
+    display: flex; /* Asegúrate de que el contenedor de las tarjetas use flexbox */
+    flex-direction: column; /* Alinear en columna si es necesario */
+    align-items: center; /* Centrar los elementos dentro de la tarjeta */
+  }
+
+  #idiomas {
+    margin-top: 0 !important;
+  }
+
+  #educacion {
+    margin-top: 0 !important;
+  }
+
+  .proyecto-principal {
+    margin-top: 30px !important;
+  }
+
+  .tarjeta-imagen {
+    margin-top: 0 !important;
+  }
+}
+
+@media (max-width: 767px) {
+  #contacto {
+    padding: 25px 15px !important; /* Ajustar el padding para móviles */
+    margin: 20px auto !important; /* Centrar la tarjeta */
+    width: calc(100% - 80px); /* Ajustar el ancho para que respete el padding del cv-container */
+    box-sizing: border-box;
+    display: flex; /* Asegúrate de que el contenedor de las tarjetas use flexbox */
+    flex-direction: column; /* Alinear en columna si es necesario */
+    align-items: center; /* Centrar los elementos dentro de la tarjeta */
+  }
+}
+
+@media (max-width: 980px) {
+  #contacto {
+    padding: 25px 15px !important; /* Ajustar el padding para móviles */
+    margin: 20px auto !important; /* Centrar la tarjeta */
+    width: calc(100% - 80px); /* Ajustar el ancho para que respete el padding del cv-container */
+    box-sizing: border-box;
+    display: flex; /* Asegúrate de que el contenedor de las tarjetas use flexbox */
+    flex-direction: column; /* Alinear en columna si es necesario */
+    align-items: center; /* Centrar los elementos dentro de la tarjeta */
+  }
+}
+
+@media (max-width: 400px) {
+  #contacto {
+    padding: 25px 15px !important; /* Ajustar el padding para móviles */
+    margin: 20px auto !important; /* Centrar la tarjeta */
+    width: calc(100% - 80px); /* Ajustar el ancho para que respete el padding del cv-container */
+    box-sizing: border-box;
+    display: flex; /* Asegúrate de que el contenedor de las tarjetas use flexbox */
+    flex-direction: column; /* Alinear en columna si es necesario */
+    align-items: center; /* Centrar los elementos dentro de la tarjeta */
   }
 }
